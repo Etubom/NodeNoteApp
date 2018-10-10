@@ -2,20 +2,23 @@ console.log("Starting app.js");
 
 const fs = require("fs");
 const _ = require("lodash");
+const yargs = require("yargs");
 
 const notes = require("./notes.js");
 
-let command = process.argv[2]; //node internal object + value holding list of everything provided on the cmd line
+const argv = yargs.argv;
+let command = argv._[0];
 console.log("Command: ", command);
+console.log("Yargs argv: ", argv);
 
 if (command === "add") {
-  console.log("Adding new note");
+  notes.addNote(argv.title, argv.body);
 } else if (command === "list") {
-  console.log("Listing all notes");
+  notes.getAll();
 } else if (command === "read") {
-  console.log("Fetching note");
+  notes.getNote(argv.title);
 } else if (command === "remove") {
-  console.log("Removing note");
+  notes.removeNote(argv.title);
 } else {
   console.log("command not recognised");
 }

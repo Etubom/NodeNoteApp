@@ -14,8 +14,11 @@ let addNote = (title, body) => {
     notes = JSON.parse(noteString); //parse and store already existing note
   } catch (e) {}
 
-  notes.push(note);
-  fs.writeFileSync("notes-data.json", JSON.stringify(notes)); //write stringfied notes array to file called 'notes-data.json'
+  let duplicateNotes = notes.filter(notes => notes.title === title);
+  if (duplicateNotes.length === 0) {
+    notes.push(note);
+    fs.writeFileSync("notes-data.json", JSON.stringify(notes)); //write stringfied notes array to file called 'notes-data.json'
+  }
 };
 let getAll = () => {
   console.log("Getting all listings");

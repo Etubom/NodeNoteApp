@@ -9,8 +9,10 @@ let addNote = (title, body) => {
     body: body
   };
 
-  let noteString = fs.readFileSync("notes-data.json"); //read already existing notes
-  notes = JSON.parse(noteString); //parse and store already existing note
+  try {
+    let noteString = fs.readFileSync("notes-data.json"); //read already existing notes
+    notes = JSON.parse(noteString); //parse and store already existing note
+  } catch (e) {}
 
   notes.push(note);
   fs.writeFileSync("notes-data.json", JSON.stringify(notes)); //write stringfied notes array to file called 'notes-data.json'
